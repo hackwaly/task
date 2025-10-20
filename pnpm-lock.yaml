@@ -32,6 +32,9 @@ importers:
       string-argv:
         specifier: ^0.3.2
         version: 0.3.2
+      supports-color:
+        specifier: ^10.2.2
+        version: 10.2.2
     devDependencies:
       '@types/micromatch':
         specifier: ^4.0.9
@@ -176,6 +179,10 @@ packages:
     resolution: {integrity: sha512-aulFJcD6YK8V1G7iRB5tigAP4TsHBZZrOV8pjV++zdUwmeV8uzbY7yn6h9MswN62adStNZFuCIx4haBnRuMDaw==}
     engines: {node: '>=18'}
 
+  supports-color@10.2.2:
+    resolution: {integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==}
+    engines: {node: '>=18'}
+
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
@@ -314,6 +321,8 @@ snapshots:
   string-argv@0.3.2: {}
 
   strip-final-newline@4.0.0: {}
+
+  supports-color@10.2.2: {}
 
   to-regex-range@5.0.1:
     dependencies:

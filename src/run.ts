@@ -2,6 +2,9 @@ import type { Command, TaskMeta, TaskRunContext } from "./types.ts";
 import { execa } from "execa";
 import process from "node:process";
 import styles from "ansi-styles";
+import supportsColor from "supports-color";
+
+const colorSupport = supportsColor.stdout;
 
 export async function runCommand(
   command: Command,
@@ -22,7 +25,9 @@ export async function runCommand(
   await execa({
     // @ts-expect-error
     cwd: cwd,
-    env: env,
+    env: colorSupport
+      ? { ...(env ?? {}), FORCE_COLOR: `${colorSupport.level}` }
+      : env,
     preferLocal: true,
     stdout: [transform, "inherit"],
     stderr: [transform, "inherit"],
