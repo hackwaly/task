@@ -3,6 +3,8 @@ import NodePath from "node:path";
 import { fileURLToPath } from "node:url";
 import { runCommand } from "./run.js";
 import { parseArgsStringToArgv } from "string-argv";
+import process from "node:process";
+import styles from "ansi-styles";
 
 export interface TaskConfig {
   name: string;
@@ -56,13 +58,25 @@ export function configInit(importMeta: ImportMeta): ConfigAPI {
         interruptible: config.interruptible ?? false,
       };
       const def: TaskDef = {
-        run:
-          config.run ??
-          (async (ctx: TaskRunContext) => {
-            if (command !== undefined) {
+        run: config.run
+          ? async (ctx: TaskRunContext) => {
+              process.stdout.write(
+                `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
+              );
+              await config.run!(ctx);
+            }
+          : command !== undefined
+          ? async (ctx: TaskRunContext) => {
+              process.stdout.write(
+                `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
+              );
               await runCommand(command, meta, ctx);
             }
-          }),
+          : async () => {
+              process.stdout.write(
+                `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
+              );
+            },
         meta: meta,
         deps: new Set(),
         invDeps: new Set(),

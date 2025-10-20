@@ -29,10 +29,6 @@ export async function start(
   const isReady = (task: TaskDef) => {
     if (!dirtySet.has(task)) throw new InvariantViolation();
 
-    if (pendingSet.has(task)) {
-      return false;
-    }
-
     for (const dep of task.deps) {
       if (!upToDateSet.has(dep)) {
         return false;
@@ -44,10 +40,11 @@ export async function start(
   const checkReady = (task: TaskDef) => {
     if (isReady(task)) {
       dirtySet.delete(task);
+      pendingSet.delete(task);
       readySet.add(task);
       readySignal.next();
 
-      // Mark inverse dependencies as pending, so they won't become ready
+      // Mark inverse dependencies as pending
       for (const invDep of task.invDeps) {
         if (dirtySet.has(invDep)) {
           pendingSet.add(invDep);
@@ -97,7 +94,6 @@ export async function start(
     upToDateSet.add(task);
     for (const invDep of task.invDeps) {
       if (pendingSet.has(invDep)) {
-        pendingSet.delete(invDep);
         checkReady(invDep);
       }
     }

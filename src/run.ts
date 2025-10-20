@@ -1,7 +1,5 @@
 import type { Command, TaskMeta, TaskRunContext } from "./types.js";
 import { execa } from "execa";
-import process from "node:process";
-import styles from "ansi-styles";
 import supportsColor from "supports-color";
 
 const colorSupport = supportsColor.stdout;
@@ -21,7 +19,6 @@ export async function runCommand(
     yield `\r${name} | ${line3}`;
   };
 
-  process.stdout.write(`▪▪▪▪ ${styles.bold.open}${name}${styles.bold.close}\n`);
   await execa({
     // @ts-expect-error
     cwd: cwd,
