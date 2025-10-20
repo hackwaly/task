@@ -18,7 +18,7 @@ export async function runCommand(
     const lastCR = line.lastIndexOf("\r");
     const line2 = lastCR >= 0 ? line.substring(lastCR + 1, line.length) : line;
     const line3 = line2.replace(/\x1bc|\x1b\[2J(?:\x1b\[H)?/g, "");
-    yield `${name} | ${line3}`;
+    yield `\r${name} | ${line3}`;
   };
 
   process.stdout.write(`▪▪▪▪ ${styles.bold.open}${name}${styles.bold.close}\n`);
