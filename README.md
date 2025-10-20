@@ -24,9 +24,9 @@ yarn add @hackwaly/task
 
 ## Quick Start
 
-1. Create a `taskfile.ts` in your project root:
+1. Create a `taskfile.js` in your project root:
 
-```typescript
+```javascript
 import { configInit } from "@hackwaly/task";
 
 const { defineTask } = configInit(import.meta);
@@ -92,7 +92,7 @@ interface TaskConfig {
 
 Commands can be specified in multiple formats:
 
-```typescript
+```javascript
 // String (parsed with shell-like parsing)
 command: "tsc --build --verbose"
 
@@ -110,7 +110,7 @@ command: {
 
 Tasks can depend on other tasks. Dependencies are resolved automatically:
 
-```typescript
+```javascript
 export const generateTypes = defineTask({
   name: "generate-types",
   command: "generate-types src/schema.json",
@@ -129,7 +129,7 @@ export const build = defineTask({
 
 For long-running processes like development servers:
 
-```typescript
+```javascript
 export const server = defineTask({
   name: "server",
   command: "node server.js",
@@ -183,7 +183,7 @@ Shows task names and descriptions in a formatted table.
 
 ### Basic Build Pipeline
 
-```typescript
+```javascript
 import { configInit } from "@hackwaly/task";
 
 const { defineTask } = configInit(import.meta);
@@ -221,7 +221,7 @@ export const test = defineTask({
 
 ### Development Workflow
 
-```typescript
+```javascript
 export const generateSchema = defineTask({
   name: "generate-schema",
   command: "generate-schema api.yaml",
@@ -251,10 +251,10 @@ export const buildWatch = defineTask({
 
 ### Monorepo Support
 
-Each package can have its own `taskfile.ts`:
+Each package can have its own `taskfile.js`:
 
-```typescript
-// packages/ui/taskfile.ts
+```javascript
+// packages/ui/taskfile.js
 import { configInit } from "@hackwaly/task";
 
 const { defineTask } = configInit(import.meta);
@@ -266,8 +266,8 @@ export const build = defineTask({
   outputs: ["dist/**/*"],
 });
 
-// packages/app/taskfile.ts
-import { build as buildUI } from "../ui/taskfile.ts";
+// packages/app/taskfile.js
+import { build as buildUI } from "../ui/taskfile.js";
 
 export const build = defineTask({
   name: "build:app",
@@ -280,7 +280,7 @@ export const build = defineTask({
 
 For complex tasks, you can provide custom logic:
 
-```typescript
+```javascript
 export const customTask = defineTask({
   name: "custom",
   async run(ctx) {
@@ -301,7 +301,6 @@ export const customTask = defineTask({
 ## Requirements
 
 - Node.js 18+ with `--experimental-strip-types` support
-- TypeScript 5.0+
 
 ## License
 
