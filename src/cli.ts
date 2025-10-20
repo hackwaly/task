@@ -89,12 +89,19 @@ export async function cliMain(): Promise<void> {
             flush();
           }
         });
-        process.on("SIGINT", () => {
+        process.on("SIGINT", async () => {
           aborter.abort();
           watcher.close();
+          await loop;
+          process.exit(0);
         });
         taskChan.next(topTaskSet);
       } else {
+        process.on("SIGINT", async () => {
+          aborter.abort();
+          await loop;
+          process.exit(0);
+        });
         taskChan.next(topTaskSet);
         taskChan.complete();
       }
