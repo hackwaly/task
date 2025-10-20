@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import process from "node:process";
-import type { TaskDef } from "./types.ts";
-import { start } from "./scheduler.ts";
+import type { TaskDef } from "./types.js";
+import { start } from "./scheduler.js";
 import { ReplaySubject } from "rxjs";
 import chokidar from "chokidar";
 import micromatch from "micromatch";
@@ -18,7 +18,7 @@ export async function cliMain(): Promise<void> {
     .argument("<tasks...>", "Task(s) to run")
     .action(async (taskNames: string[], options: { watch: boolean }) => {
       const path = process.cwd();
-      const allTaskDefs = await import(NodePath.join(path, "taskfile.ts"));
+      const allTaskDefs = await import(NodePath.join(path, "taskfile.js"));
       const topTaskSet = new Set<TaskDef>();
       for (const name of taskNames) {
         const taskDef = allTaskDefs[name];
@@ -113,7 +113,7 @@ export async function cliMain(): Promise<void> {
     .description("List all available tasks")
     .action(async () => {
       const path = process.cwd();
-      const allTaskDefs = await import(NodePath.join(path, "taskfile.ts"));
+      const allTaskDefs = await import(NodePath.join(path, "taskfile.js"));
 
       // Get all exported tasks
       const tasks: Array<{ name: string; description?: string }> = [];

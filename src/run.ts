@@ -1,4 +1,4 @@
-import type { Command, TaskMeta, TaskRunContext } from "./types.ts";
+import type { Command, TaskMeta, TaskRunContext } from "./types.js";
 import { execa } from "execa";
 import process from "node:process";
 import styles from "ansi-styles";

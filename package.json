@@ -1,16 +1,25 @@
 {
   "name": "@hackwaly/task",
-  "version": "0.2.4",
+  "version": "0.3.1",
   "type": "module",
   "license": "MIT",
   "repository": "github:hackwaly/task",
   "bin": {
     "task": "bin/task"
   },
-  "main": "./src/index.ts",
-  "pnpm": {},
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts"
+    }
+  },
+  "pnpm": {
+    "overrides": {}
+  },
+  "scripts": {
+    "prepublish": "tsc --build"
+  },
   "dependencies": {
-    "amaro": "^1.1.4",
     "ansi-styles": "^6.2.3",
     "chokidar": "^4.0.3",
     "commander": "^14.0.1",
@@ -22,6 +31,7 @@
   },
   "devDependencies": {
     "@types/micromatch": "^4.0.9",
-    "@types/node": "^24.8.1"
+    "@types/node": "^24.8.1",
+    "typescript": "^5.9.3"
   }
 }

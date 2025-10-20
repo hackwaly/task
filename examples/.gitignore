@@ -1,2 +1,3 @@
 /src/**/*.js
+!/src/taskfile.js
 !/src/gen_world.js

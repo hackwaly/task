@@ -1,7 +1,7 @@
-import type { Command, TaskDef, TaskMeta, TaskRunContext } from "./types.ts";
+import type { Command, TaskDef, TaskMeta, TaskRunContext } from "./types.js";
 import NodePath from "node:path";
 import { fileURLToPath } from "node:url";
-import { runCommand } from "./run.ts";
+import { runCommand } from "./run.js";
 import { parseArgsStringToArgv } from "string-argv";
 
 export interface TaskConfig {

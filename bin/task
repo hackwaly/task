@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --disable-warning=ExperimentalWarning --experimental-strip-types --import="amaro/strip"
-import { cliMain } from "../src/index.ts";
+#!/usr/bin/env -S node
+import { cliMain } from "../src/index.js";
 
 await cliMain();

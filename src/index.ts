@@ -1,2 +1,2 @@
-export { cliMain } from "./cli.ts";
-export { configInit } from "./config.ts";
+export { cliMain } from "./cli.js";
+export { configInit } from "./config.js";

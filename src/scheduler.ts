@@ -1,5 +1,5 @@
-import type { TaskDef } from "./types.ts";
-import { InvariantViolation } from "./errors.ts";
+import type { TaskDef } from "./types.js";
+import { InvariantViolation } from "./errors.js";
 import { firstValueFrom, Subject, type Observable } from "rxjs";
 
 export async function start(

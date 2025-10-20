@@ -1,1 +1,4 @@
 /examples
+/tsconfig.tsbuildinfo
+/src/**/*.ts
+!/src/**/*.d.ts
