@@ -298,10 +298,6 @@ export const customTask = defineTask({
 });
 ```
 
-## Requirements
-
-- Node.js 18+ with `--experimental-strip-types` support
-
 ## License
 
 MIT
