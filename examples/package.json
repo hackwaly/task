@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "task run build",
+    "watch": "task run watch"
+  },
+  "devDependencies": {
+    "@hackwaly/task": "link:..",
+    "typescript": "^5.9.3"
+  }
+}
