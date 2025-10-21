@@ -3,7 +3,10 @@
   "version": "0.3.4",
   "type": "module",
   "license": "MIT",
-  "repository": "github:hackwaly/task",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackwaly/task.git"
+  },
   "bin": {
     "task": "bin/task"
   },
