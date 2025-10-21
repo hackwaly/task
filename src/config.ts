@@ -5,6 +5,7 @@ import { runCommand } from "./run.js";
 import { parseArgsStringToArgv } from "string-argv";
 import process from "node:process";
 import styles from "ansi-styles";
+import { ExecaError } from "execa";
 
 export interface TaskConfig {
   name: string;
@@ -58,25 +59,33 @@ export function configInit(importMeta: ImportMeta): ConfigAPI {
         interruptible: config.interruptible ?? false,
       };
       const def: TaskDef = {
-        run: config.run
-          ? async (ctx: TaskRunContext) => {
-              process.stdout.write(
-                `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
-              );
+        run: async (ctx: TaskRunContext) => {
+          process.stdout.write(
+            `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
+          );
+          try {
+            if (typeof config.run === "function") {
               await config.run!(ctx);
-            }
-          : command !== undefined
-          ? async (ctx: TaskRunContext) => {
-              process.stdout.write(
-                `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
-              );
+            } else if (command !== undefined) {
               await runCommand(command, meta, ctx);
+            } else {
+              // No-op
             }
-          : async () => {
+          } catch (err) {
+            if (
+              (err instanceof ExecaError &&
+                err.cause instanceof DOMException &&
+                err.cause.name === "AbortError") ||
+              (err instanceof DOMException && err.name === "AbortError")
+            ) {
               process.stdout.write(
-                `▪▪▪▪ ${styles.bold.open}${meta.name}${styles.bold.close}\n`
+                `✖✖✖✖ ${styles.bold.open}${meta.name} aborted${styles.bold.close}\n`
               );
-            },
+            } else {
+              throw err;
+            }
+          }
+        },
         meta: meta,
         deps: new Set(),
         invDeps: new Set(),
