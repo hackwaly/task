@@ -59,7 +59,9 @@ export async function start(
     const { promise, aborter } = runningSet.get(task)!;
     runningSet.delete(task);
     abortedRunningSet.set(task, promise);
-    aborter.abort();
+    if (!aborter.signal.aborted) {
+      aborter.abort();
+    }
   };
 
   const addDirtyAndCheckReady = (task: TaskDef) => {
@@ -86,7 +88,9 @@ export async function start(
   const runTask = async (task: TaskDef, abort: AbortSignal) => {
     if (runningSet.has(task)) {
       const { promise, aborter } = runningSet.get(task)!;
-      aborter.abort();
+      if (!aborter.signal.aborted) {
+        aborter.abort();
+      }
       await Promise.allSettled([promise]);
     }
 
